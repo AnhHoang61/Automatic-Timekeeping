@@ -1,0 +1,12 @@
+flask
+flask-cors
+mysql-connector-python
+deepface
+opencv-python
+numpy
+python-dotenv
+deepface
+opencv-python
+numpy
+tf-keras
+flask-cors

@@ -11,7 +11,7 @@ API_BASE = "http://127.0.0.1:5000"
 RTSP_URL = "rtsp://admin:admin123@192.168.1.6:554/cam/realmonitor?channel=1&subtype=0"
 
 # Chế độ chấm công: "checkin" hoặc "checkout"
-MODE = "checkout"          # đổi thành "checkout" khi cần
+MODE = "checkout"
 
 # Ca làm việc dùng cho check-in (phải trùng shift_id trong DB)
 SHIFT_ID = 1

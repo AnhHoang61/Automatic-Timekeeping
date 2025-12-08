@@ -44,7 +44,7 @@
 .app-layout {
   display: flex;
   min-height: 100vh;
-  background: #0f172a; /* nền tối giống style trước của bạn */
+  background: #0f172a; 
 }
 
 .app-main {

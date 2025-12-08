@@ -63,7 +63,6 @@ export default function FaceRegister() {
       setIsUploading(true);
       const res = await faceApi.uploadEmployeeFace(selectedEmployeeId, file);
 
-      // Backend có thể trả { success: true, message: "...", embedding_dim: 512, ... }
       const data = res.data || res;
       if (data.error) {
         setMessage(`Lỗi: ${data.error}`);

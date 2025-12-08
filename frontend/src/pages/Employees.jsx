@@ -48,10 +48,10 @@ export default function Employees() {
     e.preventDefault();
     try {
       if (editingId) {
-        // 👉 ĐANG SỬA
+        // ĐANG SỬA
         await employeesApi.update(editingId, form);
       } else {
-        // 👉 THÊM MỚI
+        // THÊM MỚI
         await employeesApi.create(form);
       }
 
@@ -76,9 +76,9 @@ export default function Employees() {
     }
   };
 
-  // 👉 Khi bấm nút SỬA trên từng dòng
+  // Khi bấm nút SỬA trên từng dòng
   const handleEdit = (emp) => {
-    setEditingId(emp.employee_id); // hoặc emp.id tuỳ field của backend
+    setEditingId(emp.employee_id); 
     setForm({
       fullname: emp.fullname || "",
       email: emp.email || "",

@@ -12,7 +12,6 @@ const reportsApi = {
     return axiosClient.get("/api/reports/by-employee", { params });
   },
   exportExcel(params) {
-    // dùng window.open cho đơn giản
     const searchParams = new URLSearchParams(params).toString();
     window.open(`${axiosClient.defaults.baseURL}/api/reports/export?${searchParams}`, "_blank");
   },

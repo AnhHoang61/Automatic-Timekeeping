@@ -77,39 +77,9 @@ def extract_embedding(image_path: str):
         return None
 
 
-# def extract_embedding(image_path: str):
-#     """
-#     Dùng DeepFace để sinh face embedding cho 1 ảnh.
-#     Trả về list float (embedding) hoặc None nếu không tìm thấy mặt.
-#     """
-#     try:
-#         reps = DeepFace.represent(
-#             img_path=image_path,
-#             model_name="Facenet512",   # hoặc "ArcFace" nếu bạn đã dùng trước đó
-#             enforce_detection=True
-#         )
-#         # DeepFace.represent trả về list các khuôn mặt, mình lấy cái đầu
-#         if isinstance(reps, list) and len(reps) > 0:
-#             return reps[0]["embedding"]
-#         return None
-#     except Exception as e:
-#         print("Lỗi DeepFace.represent:", e)
-#         return None
-
-# def cosine_distance(v1, v2):
-#     v1 = np.array(v1, dtype=np.float32)
-#     v2 = np.array(v2, dtype=np.float32)
-#     dot = np.dot(v1, v2)
-#     norm1 = np.linalg.norm(v1)
-#     norm2 = np.linalg.norm(v2)
-#     if norm1 == 0 or norm2 == 0:
-#         return 1.0
-#     return 1 - (dot / (norm1 * norm2))
-
 def identify_employee_by_embedding(embedding, threshold=0.4):
     """
     Tìm nhân viên có face_embedding gần nhất.
-    Giả sử bảng employees có cột face_embedding (JSON) như bạn đang dùng.
     Trả về dict employee hoặc None nếu không match.
     """
     # Lấy tất cả nhân viên có embedding
@@ -152,7 +122,6 @@ def cosine_distance(vec1, vec2) -> float:
 def get_dashboard():
     """Trả về dữ liệu tổng quan cho Dashboard"""
 
-    # ?date=2025-11-26 (nếu không truyền -> hôm nay)
     date_str = request.args.get("date")
     if date_str:
         try:
@@ -390,8 +359,8 @@ def upload_employee_face(employee_id):
     try:
         reps = DeepFace.represent(
             img_path=file_path,
-            model_name="Facenet512",    # hoặc 'Facenet', 'ArcFace' tùy bạn
-            detector_backend="opencv"   # hoặc 'retinaface', 'mtcnn'...
+            model_name="Facenet512",
+            detector_backend="opencv"
         )
         # DeepFace.represent trả về list, lấy phần tử đầu
         embedding = reps[0]["embedding"]
@@ -411,7 +380,7 @@ def upload_employee_face(employee_id):
         (embedding_str, employee_id),
     )
 
-    # (tuỳ chọn) update luôn cột avatar là tên file
+    # update luôn cột avatar là tên file
     # execute("UPDATE employees SET avatar = %s WHERE employee_id = %s", (filename, employee_id))
 
     return jsonify({
@@ -1229,10 +1198,6 @@ def export_reports_excel():
         return jsonify({"error": "from & to are required"}), 400
     if from_date > to_date:
         return jsonify({"error": "from must <= to"}), 400
-
-    # lấy lại dữ liệu từ 2 API kia (hoặc gọi lại function bên trên)
-    # ở đây đơn giản gọi trực tiếp SQL giống /by-day và /by-employee
-    # (để không lặp lại code quá dài, ta gọi lại endpoint nội bộ cho nhanh)
 
     with app.test_request_context():
         # fake request.args cho by-day

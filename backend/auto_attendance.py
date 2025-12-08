@@ -8,7 +8,7 @@ import time
 API_BASE = "http://127.0.0.1:5000"
 
 # RTSP URL của camera
-RTSP_URL = "rtsp://admin:admin123@192.168.1.6:554/cam/realmonitor?channel=1&subtype=0"
+RTSP_URL = "rtsp://admin:admin123@192.168.1.4:554/cam/realmonitor?channel=1&subtype=0"
 
 # Chế độ chấm công: "checkin" hoặc "checkout"
 MODE = "checkin"          # đổi thành "checkout" khi cần
@@ -61,50 +61,6 @@ def send_frame_to_api(frame):
     except Exception as e:
         print("[ERROR] Gửi request tới API thất bại:", e)
         return None
-
-# def send_frame_to_api(frame_bytes):
-#     files = {"image": ("frame.jpg", frame_bytes, "image/jpeg")}
-#     data = {"shift_id": SHIFT_ID}
-#
-#     def _post(url, label):
-#         try:
-#             r = requests.post(url, files=files, data=data, timeout=10)
-#             print(f"[{label}] {r.status_code} {r.text}")
-#             try:
-#                 return r.json()           # <-- trả về dict/json
-#             except Exception:
-#                 return None
-#         except Exception as e:
-#             print(f"[ERROR] Gửi API thất bại: {e}")
-#             return None
-#
-#     # MODE = checkin / checkout / auto
-#     if MODE == "checkin":
-#         return _post(f"{API_BASE}/api/face/checkin", "CHECKIN")
-#
-#     if MODE == "checkout":
-#         return _post(f"{API_BASE}/api/face/checkout", "CHECKOUT")
-#
-#     # MODE = auto
-#     if MODE == "auto":
-#         # 1. Thử checkin trước
-#         res = _post(f"{API_BASE}/api/face/checkin", "AUTO-CHECKIN")
-#         if not res:
-#             return None
-#
-#         # Nếu checkin thành công
-#         if res.get("matched") and res.get("message") == "Face check-in success":
-#             print("[AUTO] Check-in OK")
-#             return res
-#
-#         # Nếu báo đã checkin rồi thì chuyển qua checkout
-#         if res.get("error") == "Employee already checked in":
-#             res2 = _post(f"{API_BASE}/api/face/checkout", "AUTO-CHECKOUT")
-#             return res2
-#
-#         # Các lỗi khác
-#         print("[AUTO] Check-in fail:", res)
-#         return res
 
 
 # ================== VÒNG LẶP CHÍNH ==================

@@ -5,10 +5,10 @@
 
 /* Main content bên phải sidebar */
 .main-content {
-  margin-left: 240px;      /* chừa chỗ cho sidebar */
+  margin-left: 240px;      
   padding: 24px;
   width: calc(100% - 240px);
   min-height: 100vh;
   background: #f4f7fb;
-  overflow-y: auto;        /* nội dung cuộn, sidebar đứng yên */
+  overflow-y: auto;        
 }
